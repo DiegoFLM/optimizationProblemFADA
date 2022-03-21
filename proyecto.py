@@ -50,57 +50,44 @@ def solve(n, a, b, ab, ba):
     lines = []
 
     # Algoritmo
-    #time = 10
-    #for i in range(10):
-     #   lines.append('a')
+    
+    #SetArrays&Matrices
+    bestChoiceMatrix = [['z'] * (n-1), ['z'] * (n-1)]
 
+    bestTimeMatrix = [[float('inf')] * n, [float('inf')] * n]
 
-    #SetOtherArrays
-    bestA = [''] * (n-1)
-    bestB = [''] * (n-1)
-
-    timeBestA = [float('inf')] * n
-    timeBestB = [float('inf')] * n
-
-    timeBestA[n-1] = a[n-1]
-    timeBestB[n-1] = b[n-1]
+    bestTimeMatrix[0][n-1] = a[n-1]
+    bestTimeMatrix[1][n-1] = b[n-1]
 
     bestWayBeginning = ''
     bestWay = [''] * n
 
-
-
-    #DetermineBestStartingPoint
-
+    #DetermineBestChoices&BestTimes
     for i in range (n-2, -1, -1):
         #Determine the best way from a[i]
-        if (timeBestA[i+1] < ab[i] + timeBestB[i+1]):
-            bestA[i] = 'a'
-            timeBestA[i] = a[i] + timeBestA[i+1]
+        if (bestTimeMatrix[0][i+1] < ab[i] + bestTimeMatrix[1][i+1]):
+            bestChoiceMatrix[0][i] = 'a'
+            bestTimeMatrix[0][i] = a[i] + bestTimeMatrix[0][i+1]
         else:
-            bestA[i] = 'b'
-            timeBestA[i] = a[i] + ab[i] + timeBestB[i+1]
+            bestChoiceMatrix[0][i] = 'b'
+            bestTimeMatrix[0][i] = a[i] + ab[i] + bestTimeMatrix[1][i+1]
 
         #Determine the best way from b[i]
-        if (timeBestB[i+1] <= ba[i] + timeBestA[i+1]):
-            bestB[i] = 'b'
-            timeBestB[i] = b[i] + timeBestB[i+1]
+        if (bestTimeMatrix[1][i+1] <= ba[i] + bestTimeMatrix[0][i+1]):
+            bestChoiceMatrix[1][i] = 'b'
+            bestTimeMatrix[1][i] = b[i] + bestTimeMatrix[1][i+1]
         else:
-            bestB[i] = 'a'
-            timeBestB[i] = b[i] + ba[i] + timeBestA[i+1]
-
+            bestChoiceMatrix[1][i] = 'a'
+            bestTimeMatrix[1][i] = b[i] + ba[i] + bestTimeMatrix[0][i+1]
 
     #Specify the best way
-    if (timeBestA[0] < timeBestB[0]):
+    if (bestTimeMatrix[0][0] < bestTimeMatrix[1][0]):
       bestWayBeginning = 'A'
     else:
       bestWayBeginning = 'B'
 
 
-
-
     #ObtainingBestWay&Time
-
     bestTime = 0
 
     if (bestWayBeginning == 'A'):
@@ -114,14 +101,14 @@ def solve(n, a, b, ab, ba):
 
     for j in range(1, n):
         if (bestWay[j-1] == 'a'):
-            if (bestA[j-1] == 'a'):
+            if (bestChoiceMatrix[0][j-1] == 'a'):
                 bestWay[j] = 'a'
                 bestTime += a[j]
             else:
                 bestWay[j] = 'b'
                 bestTime += ab[j-1] + b[j] 
         else:
-            if (bestB[j-1] == 'a'):
+            if (bestChoiceMatrix[1][j-1] == 'a'):
                 bestWay[j] = 'a'
                 bestTime += ba[j-1] + a[j]
             else:
@@ -129,16 +116,17 @@ def solve(n, a, b, ab, ba):
                 bestTime += b[j]
 
 
+
     print("bestWay = " + str(bestWay))
-    print("bestA = " + str(bestA))
-    print("bestB = " + str(bestB))
+    print("bestChoiceMatrix[0] = " + str(bestChoiceMatrix[0]))
+    print("bestChoiceMatrix[1] = " + str(bestChoiceMatrix[1]))
     print("a = " + str(a))
     print("ab = " + str(ab))
     print("ba = " + str(ba))
     print("b = " + str(b))
     print("bestTime = " + str(bestTime))
-    print("timeBestA = " + str(timeBestA))
-    print("timeBestB = " + str(timeBestB))
+    print("bestTimeMatrix[0] = " + str(bestTimeMatrix[0]))
+    print("bestTimeMatrix[1] = " + str(bestTimeMatrix[1]))
 
 
     time = bestTime
