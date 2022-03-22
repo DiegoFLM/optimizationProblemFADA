@@ -135,8 +135,8 @@ def main():
     #res = solve(n, a, b, ab, ba)
     #output(res)
     
-    for j in range (5, 15):
-    #for i in range(1, 1500, 37):
+    #for j in range (5, 15):
+    for j in range(5, 15000, 37):
         t0 = time.time()
         n, a, b, ab, ba = input(j)
         t1 = time.time()
