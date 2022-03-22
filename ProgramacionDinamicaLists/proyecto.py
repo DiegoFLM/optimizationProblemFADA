@@ -73,7 +73,7 @@ def solve(n, a, b, ab, ba):
             bestTimeMatrix[0][i] = a[i] + ab[i] + bestTimeMatrix[1][i+1]
 
         #Determine the best way from b[i]
-        if (bestTimeMatrix[1][i+1] <= ba[i] + bestTimeMatrix[0][i+1]):
+        if (bestTimeMatrix[1][i+1] < ba[i] + bestTimeMatrix[0][i+1]):
             bestChoiceMatrix[1][i] = 'b'
             bestTimeMatrix[1][i] = b[i] + bestTimeMatrix[1][i+1]
         else:
@@ -117,16 +117,16 @@ def solve(n, a, b, ab, ba):
 
 
 
-    print("bestWay = " + str(bestWay))
-    print("bestChoiceMatrix[0] = " + str(bestChoiceMatrix[0]))
-    print("bestChoiceMatrix[1] = " + str(bestChoiceMatrix[1]))
-    print("a = " + str(a))
-    print("ab = " + str(ab))
-    print("ba = " + str(ba))
-    print("b = " + str(b))
-    print("bestTime = " + str(bestTime))
-    print("bestTimeMatrix[0] = " + str(bestTimeMatrix[0]))
-    print("bestTimeMatrix[1] = " + str(bestTimeMatrix[1]))
+    #print("bestWay = " + str(bestWay))
+    #print("bestChoiceMatrix[0] = " + str(bestChoiceMatrix[0]))
+    #print("bestChoiceMatrix[1] = " + str(bestChoiceMatrix[1]))
+    #print("a = " + str(a))
+    #print("ab = " + str(ab))
+    #print("ba = " + str(ba))
+    #print("b = " + str(b))
+    #print("bestTime = " + str(bestTime))
+    #print("bestTimeMatrix[0] = " + str(bestTimeMatrix[0]))
+    #print("bestTimeMatrix[1] = " + str(bestTimeMatrix[1]))
 
 
     time = bestTime
